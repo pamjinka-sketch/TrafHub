@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Wallet, FileText, CheckCircle2, TrendingUp, Package, MessageCircle, ArrowRight } from 'lucide-react';
+import { Wallet, FileText, CheckCircle2, TrendingUp, Package, MessageCircle, ArrowRight, MousePointerClick, Users } from 'lucide-react';
 import { supabase, type Offer, type Application } from '@/lib/supabase';
 import { useApp } from '@/context/AppContext';
 
@@ -29,13 +29,17 @@ export default function Dashboard({ onNavigate }: { onNavigate: (page: string) =
   if (!profile) return null;
 
   const approvedCount = applications.filter((a) => a.status === 'approved').length;
+  const totalClicks = applications.reduce((sum, a) => sum + (a.stat_clicks ?? 0), 0);
+  const totalLeads = applications.reduce((sum, a) => sum + (a.stat_leads ?? 0), 0);
   const balanceUSD = (profile.balance_cents / 100).toFixed(2);
 
   const stats = [
-    { label: t('dash.balance'), value: `$${balanceUSD}`, icon: Wallet, color: 'text-neon-emerald', bg: 'bg-neon-emerald/10' },
+    { label: t('dash.balance'), value: `${balanceUSD}`, icon: Wallet, color: 'text-neon-emerald', bg: 'bg-neon-emerald/10' },
     { label: t('dash.stats.applications'), value: applications.length, icon: FileText, color: 'text-neon-cyan', bg: 'bg-neon-cyan/10' },
     { label: t('dash.stats.approved'), value: approvedCount, icon: CheckCircle2, color: 'text-neon-blue', bg: 'bg-neon-blue/10' },
-    { label: t('dash.stats.offers'), value: offers.length, icon: TrendingUp, color: 'text-purple-400', bg: 'bg-purple-500/10' },
+    { label: t('dash.stats.clicks'), value: totalClicks, icon: MousePointerClick, color: 'text-amber-400', bg: 'bg-amber-500/10' },
+    { label: t('dash.stats.leads'), value: totalLeads, icon: Users, color: 'text-purple-400', bg: 'bg-purple-500/10' },
+    { label: t('dash.stats.offers'), value: offers.length, icon: TrendingUp, color: 'text-neon-cyan', bg: 'bg-neon-cyan/10' },
   ];
 
   return (
@@ -61,7 +65,7 @@ export default function Dashboard({ onNavigate }: { onNavigate: (page: string) =
       </div>
 
       {/* Stats grid */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+      <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4 mb-8">
         {stats.map((stat, i) => (
           <div key={i} className="glass-card p-5 hover:border-white/10 transition-all animate-fade-up" style={{ animationDelay: `${i * 60}ms` }}>
             <div className={`w-10 h-10 rounded-xl ${stat.bg} flex items-center justify-center mb-3`}>

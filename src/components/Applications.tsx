@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Link2, MessageSquare, Copy, Check, Clock, CheckCircle2, XCircle } from 'lucide-react';
+import { Link2, MessageSquare, Copy, Check, Clock, CheckCircle2, XCircle, MousePointerClick, FileText, DollarSign, BarChart3 } from 'lucide-react';
 import { supabase, type Application } from '@/lib/supabase';
 import { useApp } from '@/context/AppContext';
 
@@ -70,6 +70,33 @@ export default function Applications() {
 
               {app.status === 'approved' && (
                 <div className="space-y-3 mt-4 pt-4 border-t border-white/5">
+                  {(app.stat_clicks > 0 || app.stat_leads > 0 || app.stat_conversions > 0) && (
+                    <div>
+                      <label className="text-xs text-gray-500 mb-2 flex items-center gap-1.5 font-semibold">
+                        <BarChart3 className="w-3.5 h-3.5" /> {t('apps.stats')}
+                      </label>
+                      <div className="grid grid-cols-3 gap-2">
+                        <div className="px-3 py-2.5 rounded-xl bg-ink-800 border border-white/5 text-center">
+                          <div className="flex items-center justify-center gap-1 text-xs text-gray-500 mb-1"><MousePointerClick className="w-3 h-3" /> {t('apps.statClicks')}</div>
+                          <div className="text-lg font-bold text-gray-200">{app.stat_clicks}</div>
+                        </div>
+                        <div className="px-3 py-2.5 rounded-xl bg-ink-800 border border-white/5 text-center">
+                          <div className="flex items-center justify-center gap-1 text-xs text-gray-500 mb-1"><FileText className="w-3 h-3" /> {t('apps.statLeads')}</div>
+                          <div className="text-lg font-bold text-gray-200">{app.stat_leads}</div>
+                        </div>
+                        <div className="px-3 py-2.5 rounded-xl bg-ink-800 border border-white/5 text-center">
+                          <div className="flex items-center justify-center gap-1 text-xs text-gray-500 mb-1"><DollarSign className="w-3 h-3" /> {t('apps.statConversions')}</div>
+                          <div className="text-lg font-bold text-neon-emerald">{app.stat_conversions}</div>
+                        </div>
+                      </div>
+                      {app.stat_conversions > 0 && app.offer && (
+                        <div className="mt-2 flex items-center justify-between px-3 py-2 rounded-xl bg-neon-emerald/5 border border-neon-emerald/10">
+                          <span className="text-xs text-gray-400">{t('apps.earned')}</span>
+                          <span className="text-sm font-bold text-neon-emerald">${(app.stat_conversions * Number(app.offer.payout_amount)).toFixed(2)}</span>
+                        </div>
+                      )}
+                    </div>
+                  )}
                   {app.tracking_link && (
                     <div>
                       <label className="text-xs text-gray-500 mb-1.5 flex items-center gap-1.5">

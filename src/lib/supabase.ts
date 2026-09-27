@@ -38,6 +38,9 @@ export type Application = {
   status: 'pending' | 'approved' | 'rejected';
   tracking_link: string;
   admin_message: string;
+  stat_clicks: number;
+  stat_leads: number;
+  stat_conversions: number;
   created_at: string;
   updated_at: string;
   offer?: Offer;
