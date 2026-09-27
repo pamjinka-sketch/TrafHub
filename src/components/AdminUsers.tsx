@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Shield, User, Save, Check } from 'lucide-react';
+import { Shield, User, Save, Check, Bitcoin, CreditCard } from 'lucide-react';
 import { supabase, type Profile } from '@/lib/supabase';
 import { useApp } from '@/context/AppContext';
 
@@ -71,7 +71,7 @@ export default function AdminUsers() {
             <tr className="border-b border-white/5 text-left text-xs text-gray-500 uppercase">
               <th className="px-4 py-3">{t('admin.userNick')} / Email</th>
               <th className="px-4 py-3">{t('admin.userTelegram')}</th>
-              <th className="px-4 py-3">{t('admin.userRequisites')}</th>
+              <th className="px-4 py-3">{t('admin.userPayout')}</th>
               <th className="px-4 py-3">{t('admin.userBalance')}</th>
               <th className="px-4 py-3">{t('admin.userRole')}</th>
               <th className="px-4 py-3 text-right">Actions</th>
@@ -90,7 +90,15 @@ export default function AdminUsers() {
                   </div>
                 </td>
                 <td className="px-4 py-3 text-sm text-gray-400">{user.telegram || '—'}</td>
-                <td className="px-4 py-3 text-sm text-gray-400 max-w-[160px] truncate">{user.payout_requisites || '—'}</td>
+                <td className="px-4 py-3">
+                  <div className="flex items-center gap-2 mb-1">
+                    <span className={`badge ${user.payout_method === 'Crypto' ? 'bg-neon-emerald/10 text-neon-emerald' : 'bg-neon-blue/10 text-neon-blue'}`}>
+                      {user.payout_method === 'Crypto' ? <Bitcoin className="w-3 h-3" /> : <CreditCard className="w-3 h-3" />}
+                      {user.payout_method}
+                    </span>
+                  </div>
+                  <div className="text-xs text-gray-400 max-w-[200px] whitespace-pre-wrap break-words">{user.payout_requisites || '—'}</div>
+                </td>
                 <td className="px-4 py-3">
                   {editingId === user.id ? (
                     <input type="number" step="0.01" value={editBalance} onChange={(e) => setEditBalance(e.target.value)} className="input-field py-1.5 text-sm w-24" />
@@ -136,6 +144,13 @@ export default function AdminUsers() {
             </div>
             <div className="text-xs text-gray-500 mb-1">{user.email}</div>
             <div className="text-xs text-gray-500 mb-1">Telegram: {user.telegram || '—'}</div>
+            <div className="flex items-center gap-2 mb-1">
+              <span className={`badge ${user.payout_method === 'Crypto' ? 'bg-neon-emerald/10 text-neon-emerald' : 'bg-neon-blue/10 text-neon-blue'}`}>
+                {user.payout_method === 'Crypto' ? <Bitcoin className="w-3 h-3" /> : <CreditCard className="w-3 h-3" />}
+                {user.payout_method}
+              </span>
+            </div>
+            <div className="text-xs text-gray-400 whitespace-pre-wrap break-words mb-2">{user.payout_requisites || '—'}</div>
             <div className="text-xs text-gray-500 mb-3">Balance: <span className="text-neon-emerald font-semibold">${(user.balance_cents / 100).toFixed(2)}</span></div>
             {editingId === user.id ? (
               <div className="space-y-2">

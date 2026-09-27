@@ -11,6 +11,7 @@ export type Profile = {
   role: 'admin' | 'member';
   nickname: string;
   telegram: string;
+  payout_method: 'Crypto' | 'Card';
   payout_requisites: string;
   balance_cents: number;
   created_at: string;

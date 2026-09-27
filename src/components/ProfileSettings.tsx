@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { User, Send, Check } from 'lucide-react';
+import { User, Send, Check, Bitcoin, CreditCard } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
 import { useApp } from '@/context/AppContext';
 
@@ -7,6 +7,7 @@ export default function ProfileSettings() {
   const { t, profile, refreshProfile } = useApp();
   const [nickname, setNickname] = useState('');
   const [telegram, setTelegram] = useState('');
+  const [payoutMethod, setPayoutMethod] = useState<'Crypto' | 'Card'>('Crypto');
   const [requisites, setRequisites] = useState('');
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
@@ -15,6 +16,7 @@ export default function ProfileSettings() {
     if (profile) {
       setNickname(profile.nickname || '');
       setTelegram(profile.telegram || '');
+      setPayoutMethod(profile.payout_method || 'Crypto');
       setRequisites(profile.payout_requisites || '');
     }
   }, [profile]);
@@ -27,6 +29,7 @@ export default function ProfileSettings() {
     const { error } = await supabase.from('profiles').update({
       nickname,
       telegram,
+      payout_method: payoutMethod,
       payout_requisites: requisites,
     }).eq('id', profile.id);
 
@@ -57,8 +60,22 @@ export default function ProfileSettings() {
         </div>
 
         <div>
+          <label className="block text-sm text-gray-400 mb-2">{t('profile.payoutMethod')}</label>
+          <div className="grid grid-cols-2 gap-3">
+            <button type="button" onClick={() => setPayoutMethod('Crypto')} className={`flex items-center gap-2.5 px-4 py-3 rounded-xl border transition-all ${payoutMethod === 'Crypto' ? 'border-neon-cyan/40 bg-neon-cyan/10 text-neon-cyan' : 'border-white/10 bg-ink-800 text-gray-400 hover:border-white/20'}`}>
+              <Bitcoin className="w-5 h-5" />
+              <span className="font-semibold">Crypto</span>
+            </button>
+            <button type="button" onClick={() => setPayoutMethod('Card')} className={`flex items-center gap-2.5 px-4 py-3 rounded-xl border transition-all ${payoutMethod === 'Card' ? 'border-neon-blue/40 bg-neon-blue/10 text-neon-blue' : 'border-white/10 bg-ink-800 text-gray-400 hover:border-white/20'}`}>
+              <CreditCard className="w-5 h-5" />
+              <span className="font-semibold">Card</span>
+            </button>
+          </div>
+        </div>
+
+        <div>
           <label className="block text-sm text-gray-400 mb-1.5">{t('profile.requisites')}</label>
-          <textarea value={requisites} onChange={(e) => setRequisites(e.target.value)} className="input-field min-h-[100px] resize-y" placeholder="USDT TRC20: T..." />
+          <textarea value={requisites} onChange={(e) => setRequisites(e.target.value)} className="input-field min-h-[100px] resize-y" placeholder={payoutMethod === 'Crypto' ? 'USDT TRC20: T...' : 'Card number, name, expiry...'} />
         </div>
 
         <div className="flex items-center gap-3">
