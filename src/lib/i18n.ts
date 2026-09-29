@@ -172,6 +172,14 @@ const en: Dict = {
   'dash.earned': 'Earned',
   'dash.withdraw': 'Withdraw',
   'dash.noStats': 'No statistics yet. Apply to offers to start earning.',
+  'notif.title': 'Notifications',
+  'notif.markAllRead': 'Mark all as read',
+  'notif.markRead': 'Mark as read',
+  'notif.empty': 'No notifications yet.',
+  'notif.justNow': 'just now',
+  'notif.minAgo': '{n} min ago',
+  'notif.hourAgo': '{n}h ago',
+  'notif.dayAgo': '{n}d ago',
 };
 
 const pl: Dict = {
@@ -338,6 +346,14 @@ const pl: Dict = {
   'dash.earned': 'Zarobiono',
   'dash.withdraw': 'Wypłata',
   'dash.noStats': 'Brak statystyk. Złóż wnioski do ofert, aby zacząć zarabiać.',
+  'notif.title': 'Powiadomienia',
+  'notif.markAllRead': 'Oznacz wszystkie jako przeczytane',
+  'notif.markRead': 'Oznacz jako przeczytane',
+  'notif.empty': 'Brak powiadomień.',
+  'notif.justNow': 'przed chwilą',
+  'notif.minAgo': '{n} min temu',
+  'notif.hourAgo': '{n}g temu',
+  'notif.dayAgo': '{n}d temu',
 };
 
 const ru: Dict = {
@@ -504,6 +520,14 @@ const ru: Dict = {
   'dash.earned': 'Заработано',
   'dash.withdraw': 'Вывод',
   'dash.noStats': 'Статистики пока нет. Подавайте заявки на офферы, чтобы начать зарабатывать.',
+  'notif.title': 'Уведомления',
+  'notif.markAllRead': 'Отметить все прочитанными',
+  'notif.markRead': 'Отметить прочитанным',
+  'notif.empty': 'Уведомлений пока нет.',
+  'notif.justNow': 'только что',
+  'notif.minAgo': '{n} мин назад',
+  'notif.hourAgo': '{n}ч назад',
+  'notif.dayAgo': '{n}д назад',
 };
 
 const dicts: Record<Lang, Dict> = { en, pl, ru };

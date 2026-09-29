@@ -64,3 +64,14 @@ export type Withdrawal = {
   created_at: string;
   processed_at: string | null;
 };
+
+export type Notification = {
+  id: string;
+  user_id: string;
+  title: string;
+  message: string;
+  type: 'application_approved' | 'application_rejected' | 'withdrawal_approved' | 'withdrawal_rejected';
+  is_read: boolean;
+  related_id: string | null;
+  created_at: string;
+};

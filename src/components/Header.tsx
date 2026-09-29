@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Activity, Globe, ChevronDown, LogIn, UserPlus, LogOut, LayoutDashboard, Shield, Package, FileText, MessageCircle } from 'lucide-react';
 import { useApp } from '@/context/AppContext';
 import { languages, type Lang } from '@/lib/i18n';
+import NotificationBell from '@/components/NotificationBell';
 
 const MATERIALS_URL = 'https://trafhub.com/materials';
 const TELEGRAM_URL = 'https://t.me/trafhub_support';
@@ -76,6 +77,7 @@ export default function Header({ onLogin, onRegister, onNavigate }: { onLogin: (
             {/* Auth buttons */}
             {profile ? (
               <>
+                <NotificationBell />
                 {profile.role === 'admin' && (
                   <button onClick={() => handleNav('admin')} className="flex items-center gap-1.5 px-3 py-2 rounded-lg hover:bg-white/5 transition-colors text-sm text-neon-emerald">
                     <Shield className="w-4 h-4" />
@@ -135,6 +137,9 @@ export default function Header({ onLogin, onRegister, onNavigate }: { onLogin: (
             </div>
             {profile ? (
               <>
+                <div className="flex items-center justify-between px-3 py-2.5">
+                  <NotificationBell />
+                </div>
                 {profile.role === 'admin' && (
                   <button onClick={() => handleNav('admin')} className="flex items-center gap-2 px-3 py-2.5 rounded-lg hover:bg-white/5 text-sm text-neon-emerald w-full">
                     <Shield className="w-4 h-4" /> {t('nav.admin')}
