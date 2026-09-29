@@ -1,9 +1,10 @@
 import { useState } from 'react';
-import { Package, Users, FileText, Package as Materials, MessageCircle } from 'lucide-react';
+import { Package, Users, FileText, Wallet, Package as Materials, MessageCircle } from 'lucide-react';
 import { useApp } from '@/context/AppContext';
 import AdminOffers from '@/components/AdminOffers';
 import AdminUsers from '@/components/AdminUsers';
 import AdminApplications from '@/components/AdminApplications';
+import AdminWithdrawals from '@/components/AdminWithdrawals';
 
 const MATERIALS_URL = 'https://trafhub.com/materials';
 const TELEGRAM_URL = 'https://t.me/trafhub_support';
@@ -16,6 +17,7 @@ export default function AdminPanel() {
     { id: 'offers', label: t('admin.offers'), icon: Package },
     { id: 'users', label: t('admin.users'), icon: Users },
     { id: 'applications', label: t('admin.applications'), icon: FileText },
+    { id: 'withdrawals', label: t('admin.withdrawals'), icon: Wallet },
   ];
 
   return (
@@ -57,6 +59,7 @@ export default function AdminPanel() {
         {tab === 'offers' && <AdminOffers />}
         {tab === 'users' && <AdminUsers />}
         {tab === 'applications' && <AdminApplications />}
+        {tab === 'withdrawals' && <AdminWithdrawals />}
       </main>
     </div>
   );

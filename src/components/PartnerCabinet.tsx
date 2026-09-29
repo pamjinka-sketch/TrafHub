@@ -1,10 +1,11 @@
 import { useState } from 'react';
-import { LayoutDashboard, Store, FileText, Settings, Package, MessageCircle } from 'lucide-react';
+import { LayoutDashboard, Store, FileText, Settings, Package, MessageCircle, Wallet } from 'lucide-react';
 import { useApp } from '@/context/AppContext';
 import Dashboard from '@/components/Dashboard';
 import OfferCatalog from '@/components/OfferCatalog';
 import Applications from '@/components/Applications';
 import ProfileSettings from '@/components/ProfileSettings';
+import Withdrawals from '@/components/Withdrawals';
 
 const MATERIALS_URL = 'https://trafhub.com/materials';
 const TELEGRAM_URL = 'https://t.me/trafhub_support';
@@ -17,6 +18,7 @@ export default function PartnerCabinet() {
     { id: 'dashboard', label: t('nav.dashboard'), icon: LayoutDashboard },
     { id: 'catalog', label: t('catalog.title'), icon: Store },
     { id: 'applications', label: t('apps.title'), icon: FileText },
+    { id: 'withdraw', label: t('dash.withdraw'), icon: Wallet },
     { id: 'profile', label: t('profile.title'), icon: Settings },
   ];
 
@@ -59,6 +61,7 @@ export default function PartnerCabinet() {
         {page === 'dashboard' && <Dashboard onNavigate={setPage} />}
         {page === 'catalog' && <OfferCatalog />}
         {page === 'applications' && <Applications />}
+        {page === 'withdraw' && <Withdrawals />}
         {page === 'profile' && <ProfileSettings />}
       </main>
     </div>

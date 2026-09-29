@@ -53,3 +53,14 @@ export type Payout = {
   method: 'Crypto' | 'Card';
   created_at: string;
 };
+
+export type Withdrawal = {
+  id: string;
+  user_id: string;
+  amount_cents: number;
+  method: 'Crypto' | 'Card';
+  status: 'pending' | 'approved' | 'rejected';
+  admin_note: string;
+  created_at: string;
+  processed_at: string | null;
+};
